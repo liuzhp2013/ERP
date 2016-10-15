@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		">
+		<!-- Action -->
+		<bean id="resAction" class="com.swu.erp.auth.res.web.ResAction" scope="prototype">
+			<property name="resEbi" ref="resEbi"/>
+		</bean>
+
+		<!-- Ebi -->
+		<bean id="resEbi" class="com.swu.erp.auth.res.business.ebo.ResEbo">
+			<property name="resDao" ref="resDao"/>
+		</bean>
+
+		<!-- Dao -->
+		<bean id="resDao" class="com.swu.erp.auth.res.dao.impl.ResDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"/>
+		</bean>
+</beans>

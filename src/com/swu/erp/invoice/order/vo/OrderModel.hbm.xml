@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    '-//Hibernate/Hibernate Mapping DTD 3.0//EN'
+    'http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd'>
+
+<hibernate-mapping>
+	<class name="com.swu.erp.invoice.order.vo.OrderModel" table="tbl_order">
+		<id name="uuid" column="uuid">
+			<generator class="native"/>
+		</id>
+		<property name="orderNum"/>
+		<property name="totalNum"/>
+		<property name="createTime"/>
+		<property name="checkTime"/>
+		<property name="endTime"/>
+		<property name="orderType"/>
+		<property name="type"/>
+		<property name="totalPrice"/>
+		
+		<many-to-one name="creater"
+					 column="creater"
+					 class="com.swu.erp.auth.emp.vo.EmpModel"/>
+					 
+		<many-to-one name="checker"
+					 column="checker"
+					 class="com.swu.erp.auth.emp.vo.EmpModel"/>
+					 
+		<many-to-one name="completer"
+					 column="completer"
+					 class="com.swu.erp.auth.emp.vo.EmpModel"/>
+					 
+		<many-to-one name="sm"
+					 column="supplierUuid"
+					 class="com.swu.erp.invoice.supplier.vo.SupplierModel"/>
+					 
+		<!--
+			cascade="save-update" 级联保存和更新
+			inverse="true" 放弃外键维护
+			order-by="uuid" 按odm的uuid排序
+		  -->
+		<set name="odms" cascade="save-update" inverse="true" order-by="uuid">
+			<key column="orderUuid"/>
+			<one-to-many class="com.swu.erp.invoice.orderdetail.vo.OrderDetailModel"/>
+		</set>
+	</class>
+</hibernate-mapping>
